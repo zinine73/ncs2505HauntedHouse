@@ -9,6 +9,9 @@ public class GameEnding : MonoBehaviour
     public float displayImageDuration = 1f;
     public GameObject player;
     public UIDocument uiDoc;
+    public AudioSource exitAudio;
+    public AudioSource caughtAudio;
+    bool hasAudioPlayed;
     bool isPlayerAtExit;
     bool isPlayerCaught;
     float timer;
@@ -38,16 +41,21 @@ public class GameEnding : MonoBehaviour
     {
         if (isPlayerAtExit)
         {
-            EndLevel(endScreen, false);
+            EndLevel(endScreen, false, exitAudio);
         }
         else if (isPlayerCaught)
         {
-            EndLevel(caughtScreen, true);
+            EndLevel(caughtScreen, true, caughtAudio);
         }
     }
 
-    void EndLevel(VisualElement element, bool doRestart)
+    void EndLevel(VisualElement element, bool doRestart, AudioSource audioSource)
     {
+        if (!hasAudioPlayed)
+        {
+            audioSource.Play();
+            hasAudioPlayed = true;    
+        }
         timer += Time.deltaTime;
         element.style.opacity = timer / fadeDuration;
         if (timer > fadeDuration + displayImageDuration)
