@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,11 +12,14 @@ public class PlayerMovement : MonoBehaviour
     Animator anim;
     Vector3 movement;
     Quaternion rotation = Quaternion.identity;
+    AudioSource audioSource;
+    List<string> ownedKeys = new List<string>();
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         MoveAction.Enable();
     }
 
@@ -40,5 +44,27 @@ public class PlayerMovement : MonoBehaviour
         rb.MoveRotation(rotation);
         rb.MovePosition(rb.position + movement 
             * walkSpeed * Time.deltaTime);
+
+        if (isWalking)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+        }
+    }
+
+    public void AddKey(string keyName)
+    {
+        ownedKeys.Add(keyName);
+    }
+
+    public bool OwnKey(string keyName)
+    {
+        return ownedKeys.Contains(keyName);
     }
 }

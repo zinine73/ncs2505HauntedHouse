@@ -7,14 +7,14 @@ namespace StealthGame
 {
     public class MainMenu : MonoBehaviour
     {
-        private UIDocument m_UIDocument;
+        public UIDocument m_UIDocument;
 
         private Button m_StartButton;
         private Button m_ExitButton;
     
         private void Awake()
         {
-            m_UIDocument = GetComponent<UIDocument>();
+            //m_UIDocument = GetComponent<UIDocument>();
         }
 
         private void OnEnable()

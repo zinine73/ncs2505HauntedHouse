@@ -5,11 +5,12 @@ namespace StealthGame
 {
     public class Door : MonoBehaviour
     {
-        public string KeyName = "key1";
+        public string KeyName;
     
         private void OnCollisionEnter(Collision other)
         {
-            PlayerMovement player = other.gameObject.GetComponent<PlayerMovement>();
+            PlayerMovement player =
+            other.gameObject.GetComponent<PlayerMovement>();
 
             if (player == null)
                 return;
